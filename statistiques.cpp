@@ -17,17 +17,17 @@ Statistiques::Statistiques(QWidget *parent) : QWidget(parent)
     chartView = new QChartView(this);
     chartView->setRenderHint(QPainter::Antialiasing);
 
-    // تخطيط الواجهة
+
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(chartView);
     setLayout(layout);
 
     resize(900, 600);
 
-    // تحديث أول مرة
+
     updateChart();
 
-    // تحديث كل 5 ثواني
+
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Statistiques::updateChart);
     timer->start(5000);

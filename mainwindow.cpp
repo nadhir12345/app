@@ -276,7 +276,7 @@ void MainWindow::on_tableView_commandes_clicked(const QModelIndex &index)
 
 void MainWindow::on_btnModifierCommande_clicked()
 {
-    int idCommande = currentIdCommande; // ناخذ ID من المتغيّر
+    int idCommande = currentIdCommande;
     QString nomClient = ui->lineNomClient->text().trimmed();
     QString dateCommande = ui->dateEditCommande->date().toString("yyyy-MM-dd");
     double montant = ui->lineMontant->text().toDouble();
@@ -324,7 +324,7 @@ void MainWindow::on_btnSupprimerCommande_clicked()
             QMessageBox::information(this, "Succès", "Commande supprimée !");
             afficherCommandes();
 
-            // تفريغ الحقول
+
             ui->lineNomClient->clear();
             ui->dateEditCommande->setDate(QDate::currentDate());
             ui->lineMontant->clear();
@@ -366,23 +366,23 @@ void MainWindow::exportTableViewToPDF()
 
     QRect rect = printer.pageRect();
     int x = rect.left() + 20;
-    int y = rect.top() + 40;   // شوية space من فوق
+    int y = rect.top() + 40;
     int colWidth = rect.width() / cols - 10;
     int rowHeight = 30;
 
-    // --- عنوان كبير ---
+
     QFont titleFont("Arial", 14, QFont::Bold);
     painter.setFont(titleFont);
     painter.drawText(rect, Qt::AlignHCenter | Qt::AlignTop, "Liste des Commandes");
     y += 40;
 
-    // --- ستايل الجدول ---
+
     QFont headerFont("Arial", 11, QFont::Bold);
     painter.setFont(headerFont);
-    painter.setBrush(QColor("#DCE6F1"));   // خلفية headers
+    painter.setBrush(QColor("#DCE6F1"));
     painter.setPen(Qt::black);
 
-    // --- رؤوس الأعمدة ---
+
     /*QFont headerFont("Arial", 11, QFont::Bold);
     painter.setFont(headerFont);
     painter.setPen(Qt::black);*/
@@ -390,7 +390,7 @@ void MainWindow::exportTableViewToPDF()
     for (int col = 0; col < cols; ++col) {
         QRect cellRect(x + col * colWidth, y, colWidth, rowHeight);
 
-        // خلفية العنوان بلون فاتح
+
         painter.fillRect(cellRect, QColor("#DCE6F1"));
         painter.drawRect(cellRect);
 
@@ -399,7 +399,7 @@ void MainWindow::exportTableViewToPDF()
     }
     y += rowHeight;
 
-    // --- البيانات ---
+
     QFont dataFont("Arial", 10);
     painter.setFont(dataFont);
 
@@ -407,13 +407,13 @@ void MainWindow::exportTableViewToPDF()
         for (int col = 0; col < cols; ++col) {
             QRect cellRect(x + col * colWidth, y, colWidth, rowHeight);
 
-            // خلفية متناوبة للصفوف
+
             painter.fillRect(cellRect, (row % 2 == 0) ? QColor("#FFFFFF") : QColor("#F9F9F9"));
             painter.drawRect(cellRect);
 
             QString data = model->data(model->index(row, col)).toString();
 
-            // نصوص: ID و Montant تتوسّط، البقية على اليسار
+
             if (col == 0 || col == cols-1)
                 painter.drawText(cellRect.adjusted(3, 0, -3, 0), Qt::AlignCenter, data);
             else
@@ -421,7 +421,7 @@ void MainWindow::exportTableViewToPDF()
         }
         y += rowHeight;
 
-        // معالجة تجاوز الصفحة
+
         if (y + rowHeight > rect.bottom() - 50) {
             printer.newPage();
             y = rect.top() + 40;
@@ -467,13 +467,13 @@ void MainWindow::on_exportTableViewToPDF_clicked()
     int colWidth = rect.width() / cols - 10;
     int rowHeight = 30;
 
-    // --- عنوان كبير ---
+
     QFont titleFont("Arial", 14, QFont::Bold);
     painter.setFont(titleFont);
     painter.drawText(rect, Qt::AlignHCenter | Qt::AlignTop, "Liste des Commandes");
     y += 40;
 
-    // --- رؤوس الأعمدة ---
+
     QFont headerFont("Arial", 11, QFont::Bold);
     painter.setFont(headerFont);
 
@@ -487,7 +487,7 @@ void MainWindow::on_exportTableViewToPDF_clicked()
     }
     y += rowHeight;
 
-    // --- البيانات ---
+
     QFont dataFont("Arial", 10);
     painter.setFont(dataFont);
 

@@ -40,7 +40,7 @@ void CommandNotifier::showNotification(int id)
 {
     QSqlQuery query(m_db);
 
-    // تعديل الاستعلام ليعمل JOIN مع جدول CLIENT
+
     query.prepare(
         "SELECT CLI.NOM AS NOM_CLIENT, "
         "CLI.PRENOM AS PRENOM_CLIENT, "
