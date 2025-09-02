@@ -63,7 +63,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    int currentIdCommande = -1; // نخزّن فيه الـ ID المختار
+    int currentIdCommande = -1;
     CommandNotifier* notifier;
 };
 #endif // MAINWINDOW_H

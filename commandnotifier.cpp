@@ -7,17 +7,17 @@ CommandNotifier::CommandNotifier(QSqlDatabase db, QObject *parent)
     tray = new QSystemTrayIcon(QIcon(":/icon.png"), this);
     tray->show();
 
-    // نعمل initialization قبل ما يبدأ التايمر
+
     if (m_db.isOpen()) {
         QSqlQuery query(m_db);
         if (query.exec("SELECT MAX(ID_COMMANDE) FROM COMMANDE") && query.next()) {
-            lastId = query.value(0).toInt();  // نحط آخر commande موجودة
+            lastId = query.value(0).toInt();
         }
     }
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &CommandNotifier::checkNewCommand);
-    timer->start(5000); // كل 5 ثواني
+    timer->start(5000);
 }
 
 

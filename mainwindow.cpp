@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
-    // عرض البيانات عند التشغيل
+
     Client c;
     ui->tableView_client->setModel(c.afficher());
 
@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
      connect(ui->comboBox_tri, &QComboBox::currentTextChanged,
              this, &MainWindow::on_comboBox_tri_currentTextChange);
 
-     QSqlDatabase db = QSqlDatabase::database(); // يفترض قاعدة البيانات مفتوحة مسبقًا
+     QSqlDatabase db = QSqlDatabase::database();
          notifier = new CommandNotifier(db, this);
 
 
@@ -53,13 +53,12 @@ void MainWindow::on_pushButton_ajouter_clicked()
     QString adresse = ui->lineEdit_adresse->text().trimmed();
     QString tel = ui->lineEdit_tel->text().trimmed();
 
-    // تحقق من أن الحقول ليست فارغة
     if (nom.isEmpty() || prenom.isEmpty() || adresse.isEmpty() || tel.isEmpty()) {
         QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
         return;
     }
 
-    // مثال بسيط للتحقق من رقم الهاتف (يجب أن يحتوي على أرقام فقط)
+
     QRegExp rx("\\d+");
     if (!rx.exactMatch(tel)) {
         QMessageBox::warning(this, "Erreur", "Le numéro de téléphone doit contenir uniquement des chiffres !");
@@ -133,7 +132,7 @@ void MainWindow::on_tableView_client_clicked(const QModelIndex &index)
     QString adresse = ui->tableView_client->model()->data(ui->tableView_client->model()->index(row, 3)).toString();
     QString tel = ui->tableView_client->model()->data(ui->tableView_client->model()->index(row, 4)).toString();
 
-    // إذا عندك QLineEdit خاص بالـ ID
+
     // ui->lineEdit_id->setText(id);
 
     ui->lineEdit_nom->setText(nom);
@@ -158,7 +157,6 @@ void MainWindow::on_pushButton_supprimer_clicked()
         QMessageBox::information(this, "Succès", "Client supprimé avec succès !");
         ui->tableView_client->setModel(c.afficher());
 
-        // تفريغ الحقول
         ui->lineEdit_nom->clear();
         ui->lineEdit_prenom->clear();
         ui->lineEdit_adresse->clear();
